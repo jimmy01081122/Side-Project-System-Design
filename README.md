@@ -82,6 +82,7 @@
 
 
 ## Diretory
+```
 Project_Root/
 ├── docs/                # 設計文檔、架構圖、Phase 1 的 Roofline Model 報告
 ├── hw/                  # 硬體設計 (RTL)
@@ -102,3 +103,4 @@ Project_Root/
 ├── scripts/             # 自動化腳本 (Python/Bash) 用於數據擷取與繪圖
 ├── syn/                 # 合成與 PPA 分析 (Vivado Project 檔案、XDC 約束)
 └── README.md            # 專案入口
+```
