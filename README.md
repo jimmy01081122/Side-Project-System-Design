@@ -6,7 +6,7 @@
 在寫任何一行硬體之前，我們先把測試環境架好。
 
 * **環境配置**：WSL Ubuntu + VS Code + Verilator + GTKWave。
-* **現代驗證導入 (Verification)**：捨棄傳統冗長難寫的 Verilog Testbench，全面導入 **Cocotb (Coroutine based co-simulation testbench)**。這是一個用 Python 寫硬體驗證的框架。
+* **現代驗證導入 (Verification)**：除了 Verilog Testbench，導入 **Cocotb (Coroutine based co-simulation testbench)**。這是一個用 Python 寫硬體驗證的框架。
 * **Python 數據擷取**：我們將在 Cocotb 中寫 Python 腳本，即時抓取模擬過程中的 Cycle 數、匯流排佔用率，並用 Matplotlib 直接畫出 Dataflow 與 Latency 圖表，不需要等到 Vivado 合成就能看到硬體效能！
 
 ## Phase 1: 架構探索與指令集模擬 (Architecture Exploration)
