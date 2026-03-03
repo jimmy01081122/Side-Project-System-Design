@@ -3,11 +3,9 @@
 
 ## Phase 0: 現代驗證基礎設施建置 (Verification & Infrastructure)
 
-在寫任何一行硬體之前，我們先把測試環境架好。
-
 * **環境配置**：WSL Ubuntu + VS Code + Verilator + GTKWave。
 * **現代驗證導入 (Verification)**：除了 Verilog Testbench，導入 **Cocotb (Coroutine based co-simulation testbench)**。這是一個用 Python 寫硬體驗證的框架。
-* **Python 數據擷取**：我們將在 Cocotb 中寫 Python 腳本，即時抓取模擬過程中的 Cycle 數、匯流排佔用率，並用 Matplotlib 直接畫出 Dataflow 與 Latency 圖表，不需要等到 Vivado 合成就能看到硬體效能！
+* **Python 數據擷取**：在 Cocotb 中寫 Python 腳本，即時抓取模擬過程中的 Cycle 數、匯流排佔用率，並用 Matplotlib 直接畫出 Dataflow 與 Latency 圖表以觀察效能
 
 ## Phase 1: 架構探索與指令集模擬 (Architecture Exploration)
 
@@ -27,7 +25,7 @@
 
 ## Phase 2: IC Design 基礎與通訊協定 (RTL Basics)
 
-開始手刻底層積木，並用 Python 測量通訊開銷。
+手刻底層RTL，並用 Python 測量通訊開銷。
 
 * **模組實作**：Valid/Ready 握手協定、Synchronous FIFO。
 * **匯流排實作**：AMBA APB、AMBA AXI4-Lite。
@@ -35,7 +33,7 @@
 
 ## Phase 3: RISC-V 處理器核心手刻 (CPU Evolution)
 
-將 Phase 1 在 Spike 模擬出的架構，化為真實的硬體電路。
+將 Phase 1 在 Spike 模擬出的架構寫成RTL
 
 * **Gen 1 (多週期)**：實作 RV32I，包含 Memory-Mapped I/O (MMIO)。
 * **Gen 2 (管線化)**：5-Stage Pipeline (IF, ID, EX, MEM, WB)、Data Forwarding、Hazard Unit。
@@ -44,15 +42,13 @@
 
 ## Phase 4: 異質加速器與資料搬移 (Accelerator & DMA)
 
-
-
 * **手刻矩陣加速器 (Accelerator)**：實作 Systolic Array 或簡化版 Vector Unit (SIMD)。
 * **手刻 DMA 控制器 (Direct Memory Access)**：**【核心關鍵】** 實作一個能擔任 AXI Master 的 DMA 引擎。讓它可以在 CPU 休眠或做其他事的時候，自動把 SRAM 的矩陣資料狂塞給加速器。
 * **模擬量化**：用 Cocotb (Python) 測量「CPU Polling (輪詢) 搬資料」與「DMA 搬資料」時，AXI 匯流排的佔用率對比，量化 DMA 帶來的頻寬解放。
 * **TinyGPU design**
 ## Phase 5: 系統整合與軟硬體協同優化 (System Co-Design Optimization)
 
-把所有東西串進同一個 AXI Interconnect，並開始「榨乾」系統效能。
+把所有東西串進同一個 AXI Interconnect，嘗試改善系統效能。
 
 * **System Integration**：RISC-V CPU + Cache + DMA + Accelerator + SRAM + UART。
 * **System Co-Design Optimization (軟硬體協同優化)**：
@@ -64,7 +60,7 @@
 
 ## Phase 6: 實體合成與精確 PPA 量化 (Vivado Implementation)
 
-將優化後的 RTL 程式碼送入 Vivado，獲取業界標準的硬體報告。
+將優化後的 RTL 程式碼匯入Vivado，獲取報告。
 
 * **Performance**：解析 Timing Report，測量最高運作頻率 (Fmax) 與 Critical Path。
 * **Area**：解析 Utilization Report，量化 CPU、DMA、Cache、Accelerator 各自佔用的 LUTs / Flip-Flops / DSP 比例。
@@ -72,7 +68,7 @@
 
 ## Phase 7: Benchmark 總結算 (The Grand Finale)
 
-在你的開發環境中，跑同一支 C 語言應用程式 (例如矩陣運算或簡單神經網路)，產出最終的對比圖表：
+在開發環境中，跑同一支 C 語言應用程式 (例如矩陣運算或簡單神經網路)，產出最終的對比圖表：
 
 1. **純軟體 (Baseline)**：跑在基礎 RV32I 上的執行時間與能耗。
 2. **管線化與快取 (Microarchitecture)**：加入 Pipeline 與 Cache 後的加速比。
