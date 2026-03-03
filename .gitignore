@@ -1,0 +1,17 @@
+# Build and Simulation Artifacts
+obj_dir/
+*.vcd
+*.ghw
+*.fst
+*.log
+*.jou
+*.pb
+*.str
+
+# Software Binaries
+sw/**/*.elf
+sw/**/*.bin
+sw/**/*.obj
+
+# OS generated files
+.DS_Store

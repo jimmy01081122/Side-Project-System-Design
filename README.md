@@ -80,3 +80,25 @@
 4. **異質卸載 (Co-Design)**：CPU + DMA + Accelerator 全力運轉的終極吞吐量與 Energy per MAC (每次乘加運算消耗的能量)。
 
 
+
+## Diretory
+Project_Root/
+├── docs/                # 設計文檔、架構圖、Phase 1 的 Roofline Model 報告
+├── hw/                  # 硬體設計 (RTL)
+│   ├── rtl/             # 原始碼 (.v 或 .sv)
+│   │   ├── core/        # RISC-V CPU (Gen 1~3)
+│   │   ├── accel/       # 矩陣加速器、TinyGPU
+│   │   ├── bus/         # AXI, APB Interconnect
+│   │   └── mem/         # Cache, FIFO, SRAM Controller
+│   └── ip/              # 第三方或 Vivado 產生的 IP
+├── sim/                 # 驗證與模擬環境
+│   ├── cocotb/          # Cocotb Python 測試腳本與 Makefile
+│   ├── tb_verilog/      # 傳統 Verilog Testbench (若有)
+│   └── waveforms/       # 存放 .vcd 或 .gtkw 檔案
+├── sw/                  # 軟體與編譯環境
+│   ├── benchmark/       # C 語言矩陣運算程式
+│   ├── common/          # Linker Script, Startup Code, Header files
+│   └── tools/           # Spike 修改版原始碼、編譯腳本
+├── scripts/             # 自動化腳本 (Python/Bash) 用於數據擷取與繪圖
+├── syn/                 # 合成與 PPA 分析 (Vivado Project 檔案、XDC 約束)
+└── README.md            # 專案入口
